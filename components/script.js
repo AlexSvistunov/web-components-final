@@ -17,10 +17,10 @@ customElements.define(
     }
 
     connectedCallback() {
-      const styles = this.shadowRoot
-        .querySelector('slot[name="styles"]')
-        .assignedNodes();
-      this.shadowRoot.appendChild(styles[0]);
+      // const styles = this.shadowRoot
+      //   .querySelector('slot[name="styles"]')
+      //   .assignedNodes();
+      // this.shadowRoot.appendChild(styles[0]);
 
       // const layout = this.shadowRoot
       //   .querySelector('slot[name="layout"]')
