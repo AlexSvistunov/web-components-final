@@ -14,57 +14,56 @@ customElements.define(
         <slot name='layout'></slot>
         <slot name='styles'></slot>
       `;
-
-  
     }
 
     connectedCallback() {
-      const styles = this.shadowRoot.querySelector('slot[name="styles"]').assignedNodes()
-      this.shadowRoot.appendChild(styles[0])
+      const styles = this.shadowRoot
+        .querySelector('slot[name="styles"]')
+        .assignedNodes();
+      this.shadowRoot.appendChild(styles[0]);
 
-      this.querySelector('.reply').addEventListener('click', () => {
-        this.querySelector('.add-comment').classList.toggle('hidden')
-      })
+    //   const layout = this.shadowRoot
+    //   .querySelector('slot[name="layout"]')
+    //   .assignedNodes();
+    // this.shadowRoot.appendChild(layout[0])
 
-      this.querySelector('.submit').addEventListener('click', () => {
-        const value = this.querySelector('.textarea').value
-        if(value) {
-          const comment = createCustomComment(value)
-          this.querySelector('.children').appendChild(comment)
+      this.querySelector(".reply").addEventListener("click", () => {
+        this.querySelector(".add-comment").classList.toggle("hidden");
+      });
+
+      this.querySelector(".submit").addEventListener("click", () => {
+        const value = this.querySelector(".textarea").value;
+        if (value) {
+          const comment = createCustomComment(value);
+          this.querySelector(".children").appendChild(comment);
         }
-
-      })
-
-  
-     
+      });
     }
   }
 );
 
 button.addEventListener("click", () => {
   if (input.value) {
-    const comment = createCustomComment(input.value)
-    comments.appendChild(comment)
+    const comment = createCustomComment(input.value);
+    comments.appendChild(comment);
   }
 });
 
-
-
-
 function createCustomComment(valueTitle) {
   const customComment = document.createElement("custom-comment");
-    customComment.innerHTML = `
+  customComment.innerHTML = `
     <style slot="styles">
 
-    :host {
-      display: block;
-      background-color: grey;
-      max-width: 250px;
-    }
-
-      custom-comment {
-        
+      :host {
+        display: block;
+        background-color: grey;
+        max-width: 250px;
       }
+
+      ::slotted([slot="layout"]) {
+        background-color: red;
+      }
+
 
       .comment-head {
         display: flex;
@@ -112,7 +111,5 @@ function createCustomComment(valueTitle) {
 
     `;
 
-    return customComment
-
-  
+  return customComment;
 }
