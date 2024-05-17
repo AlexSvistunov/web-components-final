@@ -22,20 +22,21 @@ customElements.define(
         .assignedNodes();
       this.shadowRoot.appendChild(styles[0]);
 
-    //   const layout = this.shadowRoot
-    //   .querySelector('slot[name="layout"]')
-    //   .assignedNodes();
-    // this.shadowRoot.appendChild(layout[0])
+      const layout = this.shadowRoot
+      .querySelector('slot[name="layout"]')
+      .assignedNodes();
+    this.shadowRoot.appendChild(layout[0])
 
-      this.querySelector(".reply").addEventListener("click", () => {
-        this.querySelector(".add-comment").classList.toggle("hidden");
+
+      this.shadowRoot.querySelector(".reply").addEventListener("click", () => {
+        this.shadowRoot.querySelector(".add-comment").classList.toggle("hidden");
       });
 
-      this.querySelector(".submit").addEventListener("click", () => {
-        const value = this.querySelector(".textarea").value;
+      this.shadowRoot.querySelector(".submit").addEventListener("click", () => {
+        const value = this.shadowRoot.querySelector(".textarea").value;
         if (value) {
           const comment = createCustomComment(value);
-          this.querySelector(".children").appendChild(comment);
+          this.shadowRoot.querySelector(".children").appendChild(comment);
         }
       });
     }
@@ -60,10 +61,6 @@ function createCustomComment(valueTitle) {
         max-width: 250px;
       }
 
-      ::slotted([slot="layout"]) {
-        background-color: red;
-      }
-
 
       .comment-head {
         display: flex;
@@ -79,9 +76,15 @@ function createCustomComment(valueTitle) {
         background-color: grey;
       }
 
-      ::slotted(.children) {
-        background-color: grey;
+      ::slotted(ul) {
+        display: block;
+        background-color: black;
       }
+
+      .children {
+        background-color: red;
+      }
+
 
   </style> 
 
@@ -104,7 +107,7 @@ function createCustomComment(valueTitle) {
 
     </div>
 
-    <div class='children'></div>
+    <ul class='children'></div>
 
   </div>
 
