@@ -19,61 +19,20 @@ customElements.define(
     }
 
     connectedCallback() {
-      this?.querySelector('.reply').addEventListener('click', () => {
+      const styles = this.shadowRoot.querySelector('slot[name="styles"]').assignedNodes()
+      this.shadowRoot.appendChild(styles[0])
+
+      this.querySelector('.reply').addEventListener('click', () => {
         this.querySelector('.add-comment').classList.toggle('hidden')
       })
 
       this.querySelector('.submit').addEventListener('click', () => {
         const value = this.querySelector('.textarea').value
         if(value) {
-          const newel = document.createElement('custom-comment')
-          newel.innerHTML = `
-          <style slot="styles">
-      
-            custom-comment {
-              display: block;
-              max-width: 250px;
-            }
-      
-            .comment-head {
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-            }
-      
-            .hidden {
-              display: none;
-            }
-        </style> 
-      
-          <div slot="layout">
-          <div class="comment-head">
-            <span>Nickname</span>
-            <span>May 11, 2024</span>
-          </div>
-      
-          <p>${value}</p>
-      
-          <div class="comment-bottom">
-            <button class='reply'>Reply</button>
-            <button>Delete</button>
-          </div>
-      
-          <div class='add-comment hidden'>
-            <textarea class='textarea'></textarea>
-            <button class='submit'>Submit</button>
-      
-          </div>
-      
-          <div class='children'></div>
-      
-        </div>
-      
-      
-          `;
-          
-          this.querySelector('.children').appendChild(newel)
+          const comment = createCustomComment(value)
+          this.querySelector('.children').appendChild(comment)
         }
+
       })
 
   
@@ -90,14 +49,21 @@ button.addEventListener("click", () => {
 });
 
 
+
+
 function createCustomComment(valueTitle) {
   const customComment = document.createElement("custom-comment");
     customComment.innerHTML = `
     <style slot="styles">
 
+    :host {
+      display: block;
+      background-color: grey;
+      max-width: 250px;
+    }
+
       custom-comment {
-        display: block;
-        max-width: 250px;
+        
       }
 
       .comment-head {
@@ -109,6 +75,15 @@ function createCustomComment(valueTitle) {
       .hidden {
         display: none;
       }
+
+      :host {
+        background-color: grey;
+      }
+
+      ::slotted(.children) {
+        background-color: grey;
+      }
+
   </style> 
 
     <div slot="layout">
