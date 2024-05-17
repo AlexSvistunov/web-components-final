@@ -23,13 +23,14 @@ customElements.define(
       this.shadowRoot.appendChild(styles[0]);
 
       const layout = this.shadowRoot
-      .querySelector('slot[name="layout"]')
-      .assignedNodes();
-    this.shadowRoot.appendChild(layout[0])
-
+        .querySelector('slot[name="layout"]')
+        .assignedNodes();
+      this.shadowRoot.appendChild(layout[0]);
 
       this.shadowRoot.querySelector(".reply").addEventListener("click", () => {
-        this.shadowRoot.querySelector(".add-comment").classList.toggle("hidden");
+        this.shadowRoot
+          .querySelector(".add-comment")
+          .classList.toggle("hidden");
       });
 
       this.shadowRoot.querySelector(".submit").addEventListener("click", () => {
@@ -39,6 +40,10 @@ customElements.define(
           this.shadowRoot.querySelector(".children").appendChild(comment);
         }
       });
+    }
+
+    disconnectedCallback() {
+      alert('Комментарий был удален!!!')
     }
   }
 );
@@ -54,6 +59,7 @@ function createCustomComment(valueTitle) {
   const customComment = document.createElement("custom-comment");
   customComment.innerHTML = `
     <style slot="styles">
+      
       ul {
         margin: 0;
         padding: 0;
@@ -69,13 +75,58 @@ function createCustomComment(valueTitle) {
         display: none;
       }
 
+      custom-comment {
+        display: block;
+        border: 1px solid blue;
+      }
+
       :host {
         display: block;
-        max-width: 250px;
+        max-width: 350px;
+        // background-color: rgb(128 166 226);
+        border: 1px solid blue;
+        padding: 15px;
+        border-radius: 20px;
+        color: black;
+      }
+
+      :slotted(div) {
+        border: 1px solid blue;
+      }
+
+      .layout {
+        background: black;
       }
 
       .children {
         padding-left: 15px;
+      }
+
+      .comment-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 7px;
+      }
+
+      .reply, .delete {
+        border: none;
+        background: transparent;
+        // color: white;
+        color: black;
+        font-size: 16px;
+      }
+
+      .nickname {
+        font-size: 16px;
+      }
+
+      .date {
+        font-size: 12px;
+      }
+
+      .text {
+        font-size: 21px;
       }
 
 
@@ -83,15 +134,15 @@ function createCustomComment(valueTitle) {
 
     <div slot="layout">
     <div class="comment-head">
-      <span>Nickname</span>
-      <span>${new Date().toLocaleString()}</span>
+      <span class='nickname'>Nickname</span>
+      <span class='date'>${new Date().toLocaleString()}</span>
     </div>
 
-    <p>${valueTitle}</p>
+    <p class='text'>${valueTitle}</p>
 
     <div class="comment-bottom">
       <button class='reply'>Reply</button>
-      <button>Delete</button>
+      <button class='delete'>Delete</button>
     </div>
 
     <div class='add-comment hidden'>

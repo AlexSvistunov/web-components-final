@@ -10,14 +10,24 @@
 
 <body>
 
-  <textarea class="input" name="" id=""></textarea>
-  <button class="button">Leave a comment</button>
+  <section class="comment-section p-10">
+    <div class="container w-full max-w-7xl mx-auto my-0">
+      <div class="flex gap-3 items-center mb-10">
+        <textarea class="input block rounded-xl border-2 resize-none border-blue-500 outline-none max-w-64 w-full 
+        focus:outline-none text-2xl p-3"></textarea>
+        <button class="button text-blue-400">Leave a comment</button>
+      </div>
+
+      <div class="comments flex flex-col gap-4">
+        <h2 class="text-4xl m-0 mb-3">Comments</h2>
+
+      </div>
+
+    </div>
+  </section>
 
 
-  <div class="comments flex">
-    <h2>Comments</h2>
-
-    <!-- <custom-comment>
+  <!-- <custom-comment>
 
       <div slot="layout">
         <div class="comment-head">
@@ -43,7 +53,8 @@
       </div>
 
     </custom-comment> -->
-  </div>
+
+  <!-- html template, detele functionality, custom properties -->
 
 
 
