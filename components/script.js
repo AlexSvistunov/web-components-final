@@ -54,13 +54,10 @@ function createCustomComment(valueTitle) {
   const customComment = document.createElement("custom-comment");
   customComment.innerHTML = `
     <style slot="styles">
-
-      :host {
-        display: block;
-        background-color: grey;
-        max-width: 250px;
+      ul {
+        margin: 0;
+        padding: 0;
       }
-
 
       .comment-head {
         display: flex;
@@ -73,16 +70,12 @@ function createCustomComment(valueTitle) {
       }
 
       :host {
-        background-color: grey;
-      }
-
-      ::slotted(ul) {
         display: block;
-        background-color: black;
+        max-width: 250px;
       }
 
       .children {
-        background-color: red;
+        padding-left: 15px;
       }
 
 
@@ -91,7 +84,7 @@ function createCustomComment(valueTitle) {
     <div slot="layout">
     <div class="comment-head">
       <span>Nickname</span>
-      <span>May 11, 2024</span>
+      <span>${new Date().toLocaleString()}</span>
     </div>
 
     <p>${valueTitle}</p>
