@@ -22,22 +22,22 @@ customElements.define(
         .assignedNodes();
       this.shadowRoot.appendChild(styles[0]);
 
-      const layout = this.shadowRoot
-        .querySelector('slot[name="layout"]')
-        .assignedNodes();
-      this.shadowRoot.appendChild(layout[0]);
+      // const layout = this.shadowRoot
+      //   .querySelector('slot[name="layout"]')
+      //   .assignedNodes();
+      // this.shadowRoot.appendChild(layout[0]);
 
-      this.shadowRoot.querySelector(".reply").addEventListener("click", () => {
-        this.shadowRoot
+      this.querySelector(".reply").addEventListener("click", () => {
+        this
           .querySelector(".add-comment")
           .classList.toggle("hidden");
       });
 
-      this.shadowRoot.querySelector(".submit").addEventListener("click", () => {
-        const value = this.shadowRoot.querySelector(".textarea").value;
+      this.querySelector(".submit").addEventListener("click", () => {
+        const value = this.querySelector(".textarea").value;
         if (value) {
           const comment = createCustomComment(value);
-          this.shadowRoot.querySelector(".children").appendChild(comment);
+          this.querySelector(".children").appendChild(comment);
         }
       });
     }
