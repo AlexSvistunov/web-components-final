@@ -1,4 +1,5 @@
 const input = document.querySelector(".input");
+const template = document.querySelector("template");
 const button = document.querySelector(".button");
 const comments = document.querySelector(".comments");
 
@@ -8,11 +9,61 @@ customElements.define(
     constructor() {
       super();
 
-     
+      const template = document.createElement("template");
+      template.innerHTML = `
+      <div class='comment-wrapper'>
+      <div class="comment-head">
+        <span class='nickname'>Nickname</span>
+        <span class='date'>${new Date().toLocaleString()}</span>
+      </div>
+  
+      <p class='text'>${valueTitle}</p>
+  
+      <div class="comment-bottom">
+        <button class='reply'>Reply</button>
+        <button class='delete'>Delete</button>
+      </div>
+  
+      <div class='add-comment hidden'>
+        <textarea class='textarea'></textarea>
+        <button class='submit'>Submit</button>
+  
+      </div>
+  
+      <ul class='children'></div>
+  
+    </div>
+    
+  
+    <div slot='inner'></slot
+      `;
+      this.attachShadow({ mode: "open" });
+
+      this.shadowRoot.appendChild(document.querySelector(".comment-wrapper"));
     }
 
     connectedCallback() {
-     
+      // const styles = this.shadowRoot
+      //   .querySelector('slot[name="styles"]')
+      //   .assignedNodes();
+      // this.shadowRoot.appendChild(styles[0]);
+
+      // const layout = this.shadowRoot
+      //   .querySelector('slot[name="layout"]')
+      //   .assignedNodes();
+      // this.shadowRoot.appendChild(layout[0]);
+
+      this.querySelector(".reply").addEventListener("click", () => {
+        this.querySelector(".add-comment").classList.toggle("hidden");
+      });
+
+      this.querySelector(".submit").addEventListener("click", () => {
+        const value = this.querySelector(".textarea").value;
+        if (value) {
+          const comment = createCustomComment(value);
+          this.querySelector(".children").appendChild(comment);
+        }
+      });
     }
 
     disconnectedCallback() {
@@ -28,62 +79,18 @@ button.addEventListener("click", () => {
   }
 });
 
-function createCustomComment(value) {
-  const template = createTemplate(value)
-  const customComment = document.createElement('custom-comment')
-  customComment.attachShadow({
-    mode: 'open'
-  })
+function createCustomComment(valueTitle) {
+  const customComment = document.createElement("custom-comment");
+  customComment.innerHTML = `
 
-
-  customComment.shadowRoot.appendChild(template)
-
-  return customComment
   
-}
-
-function createTemplate(valueTitle) {
-  const template = document.createElement("template");
-  template.innerHTML = `
-    <div class="comment-head">
-    <span class='nickname'>Nickname</span>
-    <span class='date'>${new Date().toLocaleString()}</span>
-    </div>
-
-    <p class='text'>${valueTitle}</p>
-
-    <div class="comment-bottom">
-    <button class='reply'>Reply</button>
-    <button class='delete'>Delete</button>
-    </div>
-
-    <div class='add-comment hidden'>
-    <textarea class='textarea'></textarea>
-    <button class='submit'>Submit</button>
-
-    </div>
-
-    <ul class='children'></div>
+    
 
 
-    <style slot='styles'>
-
-    .comment-head {
-      background: black;
-    }
-
-    // :host {
-    // display: block;
-    // background: black;
-    // }
-
-    // ::slotted(div) {
-    // display: block;
-    // background: black;
-    // }
-
-    </style>
     `;
 
-    return template.content
+  return customComment;
 }
+
+// если есть slot, то это это вложенный комментарий
+// слоты для динамических данных
