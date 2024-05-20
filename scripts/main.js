@@ -1,25 +1,28 @@
 
+const posts = document.querySelectorAll(".post");
+posts.forEach((post) => {
+  const commentBtn = post.querySelector(".post__comment-btn");
+  const postComments = post.querySelector(".post__comments");
+  const commentsList = post.querySelector(".comments");
 
+  const field = post.querySelector(".post__textarea");
+  const sendPost = post.querySelector(".post__send");
 
-const posts = document.querySelectorAll('.post')
-posts.forEach(post => {
-  const commentBtn = post.querySelector('.post__comment-btn')
-  const postComments = post.querySelector('.post__comments')
-  const commentsList = post.querySelector('.comments')
+  commentBtn.addEventListener("click", () => {
+    postComments.classList.toggle("hidden");
+  });
 
+  sendPost.addEventListener("click", () => {
+    if (field.value) {
+      const comment = document.createElement("custom-comment");
+      comment.setAttribute("value", field.value);
+      commentsList.appendChild(comment);
   
-const field = post.querySelector(".post__textarea");
-const template = post.querySelector("template");
-const sendPost = post.querySelector(".post__send");
-
-
-commentBtn.addEventListener('click', () => {
-  postComments.classList.toggle('hidden')
-})
-
- 
-})
-
+      field.value = "";
+    }
+  });
+  
+});
 
 customElements.define(
   "custom-comment",
@@ -29,35 +32,36 @@ customElements.define(
     }
 
     connectedCallback() {
-      const value = this.getAttribute('value')
+      const value = this.getAttribute("value");
       const template = createTemplate(value);
-
 
       this.attachShadow({ mode: "open" });
       this.shadowRoot.appendChild(template.content);
 
-      const replyBtn = this.shadowRoot.querySelector('.reply')
-      const addComment = this.shadowRoot.querySelector('.add-comment')
-      const submit = this.shadowRoot.querySelector(".submit")
-      const textarea = this.shadowRoot.querySelector(".textarea")
-      const textareaValue = textarea.value
-    
+      const replyBtn = this.shadowRoot.querySelector(".reply");
+      const deleteBtn = this.shadowRoot.querySelector('.delete')
+      const addComment = this.shadowRoot.querySelector(".add-comment");
+      const submit = this.shadowRoot.querySelector(".submit");
+      const textarea = this.shadowRoot.querySelector(".textarea");
+      const textareaValue = textarea.value;
+
       replyBtn.addEventListener("click", () => {
-        addComment
-          .classList.toggle("hidden");
+        addComment.classList.toggle("hidden");
       });
+
+      deleteBtn.addEventListener('click', () => {
+        this.remove()
+      })
 
       submit.addEventListener("click", () => {
         if (textarea.value.length) {
+          const comment = document.createElement("custom-comment");
+          comment.setAttribute("slot", "inner-comment");
+          comment.setAttribute("value", textarea.value);
+          this.appendChild(comment);
+          textarea.value = "";
 
-          const comment = document.createElement('custom-comment')
-          comment.setAttribute('slot', 'inner-comment')
-          comment.setAttribute('value', value)
-          this.appendChild(comment)
-          textarea.value = ''
-
-          addComment.classList.add('hidden')
-
+          addComment.classList.add("hidden");
         }
       });
     }
@@ -68,16 +72,7 @@ customElements.define(
   }
 );
 
-sendPost.addEventListener("click", () => {
-  if (field.value) {
-    const comment = document.createElement("custom-comment");
-    comment.setAttribute('value', field.value)
-    commentsList.appendChild(comment);
 
-    field.value = ''
-
-  }
-});
 
 function createTemplate(valueTitle) {
   const template = document.createElement("template");
@@ -111,7 +106,7 @@ function createTemplate(valueTitle) {
   
 
   <style>
-
+  
     :host {
       display: block;
       max-width: 100%;
@@ -162,8 +157,7 @@ function createTemplate(valueTitle) {
     .reply, .delete {
       border: none;
       background: transparent;
-      // color: white;
-      color: black;
+      color: var(--black-color);
       font-size: 16px;
     }
 
@@ -185,5 +179,3 @@ function createTemplate(valueTitle) {
 
   return template;
 }
-
-

@@ -1,3 +1,7 @@
+:root {
+  --black-color: #000;
+}
+
 html, body {
   min-height: 100vh;
   background: rgb(237, 238, 240);
