@@ -36,13 +36,17 @@ customElements.define(
       this.shadowRoot.querySelector(".submit").addEventListener("click", () => {
         const value = this.shadowRoot.querySelector(".textarea").value;
         if (value) {
+
+          const comment = document.createElement('custom-comment')
+          comment.setAttribute('slot', '123')
+          this.appendChild(comment)
           // const comment = document.createElement("custom-comment");
           // this.shadowRoot.querySelector(".children").appendChild(comment);
           
-          const div = document.createElement('div')
-          div.setAttribute('slot', '123')
-          const template = createTemplate(value)
-          div.appendChild(template.content)
+          // const div = document.createElement('div')
+          // div.setAttribute('slot', '123')
+          // const template = createTemplate(value)
+          // div.appendChild(template.content)
 
         }
       });
@@ -58,7 +62,7 @@ button.addEventListener("click", () => {
   if (input.value) {
     const comment = document.createElement("custom-comment");
     comment.innerHTML = `
-  //  надо не тут, а в кастом элемент засунуть
+
 
       
     `
