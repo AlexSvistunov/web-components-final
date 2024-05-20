@@ -16,6 +16,7 @@ customElements.define(
 
       this.attachShadow({ mode: "open" });
       this.shadowRoot.appendChild(template.content);
+    
       // const styles = this.shadowRoot
       //   .querySelector('slot[name="styles"]')
       //   .assignedNodes();
@@ -50,6 +51,12 @@ customElements.define(
 button.addEventListener("click", () => {
   if (input.value) {
     const comment = document.createElement("custom-comment");
+    comment.innerHTML = `
+      <div slot='123'>
+        123
+      </div>
+    `
+    // только создать через document.createElement(и с читать value)
     comments.appendChild(comment);
   }
 });
@@ -79,6 +86,8 @@ function createTemplate(valueTitle) {
     <ul class='children'></div>
 
   </div>
+
+  <slot name='123'></slot>
 
   <style>
     .hidden {
