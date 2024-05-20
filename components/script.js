@@ -118,3 +118,4 @@ function createTemplate(valueTitle) {
 
 // если есть slot, то это это вложенный комментарий
 // слоты для динамических данных
+// не просто padding-left, a slotted как-то host
