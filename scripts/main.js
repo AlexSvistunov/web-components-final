@@ -25,25 +25,28 @@ customElements.define(
 
       this.attachShadow({ mode: "open" });
       this.shadowRoot.appendChild(template.content);
-    
 
-      this.shadowRoot.querySelector(".reply").addEventListener("click", () => {
-        this.shadowRoot
-          .querySelector(".add-comment")
+      const replyBtn = this.shadowRoot.querySelector('.reply')
+      const addComment = this.shadowRoot.querySelector('.add-comment')
+      const submit = this.shadowRoot.querySelector(".submit")
+      const textarea = this.shadowRoot.querySelector(".textarea")
+      const textareaValue = textarea.value
+    
+      replyBtn.addEventListener("click", () => {
+        addComment
           .classList.toggle("hidden");
       });
 
-      this.shadowRoot.querySelector(".submit").addEventListener("click", () => {
-        const value = this.shadowRoot.querySelector(".textarea").value;
-        if (value.length) {
+      submit.addEventListener("click", () => {
+        if (textarea.value.length) {
 
           const comment = document.createElement('custom-comment')
           comment.setAttribute('slot', 'inner-comment')
           comment.setAttribute('value', value)
           this.appendChild(comment)
-          this.shadowRoot.querySelector(".textarea").value = ''
+          textarea.value = ''
 
-          this.shadowRoot.querySelector('.add-comment').classList.add('hidden')
+          addComment.classList.add('hidden')
 
         }
       });
@@ -97,7 +100,6 @@ function createTemplate(valueTitle) {
   <slot name='inner-comment'></slot>
   
 
-
   <style>
 
     :host {
@@ -107,6 +109,10 @@ function createTemplate(valueTitle) {
       border-radius: 20px;
       color: black;
       padding-left: 15px;
+    }
+
+    .comment-wrapper {
+      margin: 0 0 10px;
     }
 
     .add-comment {
