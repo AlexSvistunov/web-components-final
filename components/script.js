@@ -9,40 +9,17 @@ customElements.define(
     constructor() {
       super();
 
-      const template = document.createElement("template");
-      template.innerHTML = `
-      <div class='comment-wrapper'>
-      <div class="comment-head">
-        <span class='nickname'>Nickname</span>
-        <span class='date'>${new Date().toLocaleString()}</span>
-      </div>
-  
-      <p class='text'>${valueTitle}</p>
-  
-      <div class="comment-bottom">
-        <button class='reply'>Reply</button>
-        <button class='delete'>Delete</button>
-      </div>
-  
-      <div class='add-comment hidden'>
-        <textarea class='textarea'></textarea>
-        <button class='submit'>Submit</button>
-  
-      </div>
-  
-      <ul class='children'></div>
-  
-    </div>
-    
-  
-    <div slot='inner'></slot
-      `;
-      this.attachShadow({ mode: "open" });
+     
+     
 
-      this.shadowRoot.appendChild(document.querySelector(".comment-wrapper"));
     }
 
     connectedCallback() {
+      const value = input.value
+      const template = createTemplate(value)
+
+      this.attachShadow({ mode: "open" });
+      this.shadowRoot.appendChild(template.content)
       // const styles = this.shadowRoot
       //   .querySelector('slot[name="styles"]')
       //   .assignedNodes();
@@ -60,7 +37,7 @@ customElements.define(
       this.querySelector(".submit").addEventListener("click", () => {
         const value = this.querySelector(".textarea").value;
         if (value) {
-          const comment = createCustomComment(value);
+          const comment = document.createElement('custom-comment')
           this.querySelector(".children").appendChild(comment);
         }
       });
@@ -74,22 +51,50 @@ customElements.define(
 
 button.addEventListener("click", () => {
   if (input.value) {
-    const comment = createCustomComment(input.value);
-    comments.appendChild(comment);
+    const comment = document.createElement('custom-comment')
+    // comments.appendChild(comment);
   }
 });
 
-function createCustomComment(valueTitle) {
-  const customComment = document.createElement("custom-comment");
-  customComment.innerHTML = `
+// function createCustomComment(valueTitle) {
+//   const customComment = document.createElement("custom-comment");
+ 
+//   customComment.appendChild(template.content)
 
-  
-    
+//   return customComment;
+// }
+
+function createTemplate(valueTitle) {
+  const template = document.createElement("template");
+  template.innerHTML = `
+  <div class='comment-wrapper'>
+  <div class="comment-head">
+    <span class='nickname'>Nickname</span>
+    <span class='date'>${new Date().toLocaleString()}</span>
+  </div>
+
+  <p class='text'>${valueTitle}</p>
+
+  <div class="comment-bottom">
+    <button class='reply'>Reply</button>
+    <button class='delete'>Delete</button>
+  </div>
+
+  <div class='add-comment hidden'>
+    <textarea class='textarea'></textarea>
+    <button class='submit'>Submit</button>
+
+  </div>
+
+  <ul class='children'></div>
+
+</div>
 
 
-    `;
+<div slot='inner'></slot
+  `;
 
-  return customComment;
+  return template
 }
 
 // если есть slot, то это это вложенный комментарий
