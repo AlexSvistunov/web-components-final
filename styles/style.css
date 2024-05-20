@@ -22,8 +22,12 @@ html, body {
 .post {
   border: 1px solid #ccc;
   border-radius: 15px;
-  padding: 15px 20px;
+
   background-color: white;
+}
+
+.post__inner {
+  padding: 15px 20px;
 }
 
 .post__head {
@@ -40,10 +44,50 @@ html, body {
   justify-content: flex-end;
 }
 
-.post__comment {
+.post__comment-btn {
   margin: 0;
   padding: 0;
   border: none;
   background: transparent;
   cursor: pointer;
+}
+
+.post__comments {
+  padding: 15px 20px;
+  border-top: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.post__textarea {
+  outline: 1px solid transparent;
+  flex: 0 1 90%;
+  resize: none;
+  padding: 10px;
+  height: 40px;
+  border-radius: 10px;
+
+}
+
+
+.post__send {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  background-image: url('/images/comment.png');
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+
+
+}
+
+.hidden {
+  display: none;
 }
