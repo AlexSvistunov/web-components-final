@@ -11,7 +11,7 @@ customElements.define(
     }
 
     connectedCallback() {
-      const value = input.value;
+      const value = this.getAttribute('value')
       const template = createTemplate(value);
 
       // я думаю что нужно управлять атрибутом
@@ -41,6 +41,7 @@ customElements.define(
 
           const comment = document.createElement('custom-comment')
           comment.setAttribute('slot', '123')
+          comment.setAttribute('value', value)
           this.appendChild(comment)
           // const comment = document.createElement("custom-comment");
           // this.shadowRoot.querySelector(".children").appendChild(comment);
@@ -63,11 +64,7 @@ customElements.define(
 button.addEventListener("click", () => {
   if (input.value) {
     const comment = document.createElement("custom-comment");
-    comment.innerHTML = `
-
-
-      
-    `
+    comment.setAttribute('value', input.value)
     // только создать через document.createElement(и с читать value)
     comments.appendChild(comment);
   }
