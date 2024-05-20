@@ -1,13 +1,23 @@
-const commentBtn = document.querySelector('.post__comment-btn')
-const postComments = document.querySelector('.post__comments')
-const commentsList = document.querySelector('.comments')
 
-const field = document.querySelector(".post__textarea");
-const template = document.querySelector("template");
-const sendPost = document.querySelector(".post__send");
+
+
+const posts = document.querySelectorAll('.post')
+posts.forEach(post => {
+  const commentBtn = post.querySelector('.post__comment-btn')
+  const postComments = post.querySelector('.post__comments')
+  const commentsList = post.querySelector('.comments')
+
+  
+const field = post.querySelector(".post__textarea");
+const template = post.querySelector("template");
+const sendPost = post.querySelector(".post__send");
+
 
 commentBtn.addEventListener('click', () => {
   postComments.classList.toggle('hidden')
+})
+
+ 
 })
 
 
