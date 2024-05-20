@@ -1,0 +1,49 @@
+html, body {
+  min-height: 100vh;
+  background: rgb(237, 238, 240);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.posts {
+  padding: 50px 0;
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.post {
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  padding: 15px 20px;
+  background-color: white;
+}
+
+.post__head {
+  display: flex;
+  justify-content: space-between;
+}
+
+.post__text {
+  font-size: 20px;
+}
+
+.post__bottom {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.post__comment {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}

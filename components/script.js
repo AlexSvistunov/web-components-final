@@ -102,11 +102,42 @@ function createTemplate(valueTitle) {
 
     :host {
       display: block;
-      padding-left: 20px;
+      max-width: 350px;
+      padding: 15px;
+      border-radius: 20px;
+      color: black;
+      padding-left: 15px;
     }
 
+
+    .comment-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
     .hidden {
-      display: none;
+        display: none;
+    }
+
+    .reply, .delete {
+      border: none;
+      background: transparent;
+      // color: white;
+      color: black;
+      font-size: 16px;
+    }
+
+    .nickname {
+      font-size: 16px;
+    }
+
+    .date {
+      font-size: 12px;
+    }
+
+    .text {
+      font-size: 21px;
     }
   </style>
 
@@ -117,5 +148,4 @@ function createTemplate(valueTitle) {
 }
 
 // если есть slot, то это это вложенный комментарий
-// слоты для динамических данных
 // не просто padding-left, a slotted как-то host
