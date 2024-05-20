@@ -99,6 +99,12 @@ function createTemplate(valueTitle) {
   <slot name='123'></slot>
 
   <style>
+
+    :host {
+      display: block;
+      padding-left: 20px;
+    }
+
     .hidden {
       display: none;
     }
