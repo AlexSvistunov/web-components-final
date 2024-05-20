@@ -14,6 +14,8 @@ customElements.define(
       const value = input.value;
       const template = createTemplate(value);
 
+      // я думаю что нужно управлять атрибутом
+
       this.attachShadow({ mode: "open" });
       this.shadowRoot.appendChild(template.content);
     
