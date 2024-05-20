@@ -58,9 +58,7 @@ button.addEventListener("click", () => {
   if (input.value) {
     const comment = document.createElement("custom-comment");
     comment.innerHTML = `
-      <div slot='123'>
-        123
-      </div>
+  //  надо не тут, а в кастом элемент засунуть
 
       
     `
